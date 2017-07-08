@@ -1,6 +1,7 @@
 package com.github.liketechnik;
 
 import com.github.liketechnik.projects.Project;
+import com.github.liketechnik.utils.ExitCodes;
 import com.github.liketechnik.utils.ProjectClassLoader;
 
 import java.io.File;
@@ -39,9 +40,11 @@ public class Build {
             project.executeFunctions(project.getAfterBuild());
         } catch (ClassNotFoundException e) {
             System.err.println("Project class not found on class path.");
+            System.exit(ExitCodes.classLoadErrors);
         } catch (IllegalAccessException | InstantiationException e) {
             System.err.println("Error while instantiating a new project class instance. This should not happen when your " +
                     "project file is correct structured.");
+            System.exit(ExitCodes.classLoadErrors);
         }
     }
 }
