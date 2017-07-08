@@ -12,11 +12,11 @@ import java.io.File;
  */
 public class Build {
     public final static void main(String[] args) throws IllegalAccessException, InstantiationException, ClassNotFoundException {
-        String buildClassName = new File(System.getProperty("user.dir")).getName();
-        if (!new File(System.getProperty("user.dir") + buildClassName + ".class").exists()) {
+        File buildClass = new File(new File (System.getProperty("user.dir")).getName());
+        if (!new File(buildClass.getAbsolutePath() +  ".class").exists()) {
             AssembleProject.main(new String[]{});
         }
-        Class<? extends Project> projectClass = (Class<? extends Project>) new ProjectClassLoader().loadClass(buildClassName);
+        Class<? extends Project> projectClass = (Class<? extends Project>) new ProjectClassLoader().loadClass(buildClass.getName());
         try {
             Project project = projectClass.newInstance();
 
